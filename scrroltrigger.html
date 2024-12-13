@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollTrigger Example</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        /* Section Styling */
+        #one, #two, #three {
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center the .box */
+        }
+        #one {
+            background-color: aliceblue;
+        }
+        #two {
+            background-color: black;
+        }
+        #three {
+            background-color: cadetblue;
+        }
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            display: flex;
+background-color: aquamarine;
+            align-items: center;
+            justify-content: center;
+        }
+        p {
+            font-size: 30px;
+        }
+        p.box2 {
+            font-size: 30px;
+            color: white;
+        }
+
+        #three .helo{
+            font-size: 600px;
+            font-weight: 700;
+            text-align: center ;
+            /* overflow-x: hidden */
+        }
+        .four{
+            width: 100%;
+            height: 100vh;
+            overflow-x: hidden;
+            background-color: black;
+        }
+        .ex{
+            font-weight: 200;
+            font-size: 400px;
+            color: wheat;
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div id="one">
+            <p class="box">Hey Buddy</p>
+        </div>
+        <div id="two">
+            <p class="box2">Scroll-triggered Animation!</p>
+        </div>
+        <div id="three">
+           <p class="helo">Hardwork</p>
+                </div>
+    </div>
+    <div class="four">
+        <p class="ex">heybuddywhatsup </p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        // Register ScrollTrigger with GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animation for the first section
+        gsap.to('#one .box', {
+            // rotate: 360,
+            duration: 1,
+            delay: 0.5,
+            scale:2,
+            scrollTrigger: {
+                x:100,
+                trigger: "#two",      
+                start: "top 90%",    
+                end: "top 20%",                                                                                         
+                 markers: true,        
+                scrub: true, 
+            }
+        });
+
+        // ScrollTrigger animation for the second section
+        gsap.from("#two .box2", {
+            rotate: 360,
+            scale: 0.2,
+            opacity:0,
+                
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#two",       // Correct trigger is the #two section
+                start: "top 80%",      // Start animation when the top of #two reaches 80% of the viewport
+                end: "top 20%",        // Animation continues until the top of #two reaches 50%
+                markers: true,         // Enable markers for debugging
+                scrub: true,           // Smooth scrubbing
+            },
+        });
+
+        gsap.to('#three .helo',{
+            
+            transform:"translate(-100%)",
+            scrollTrigger:{
+                trigger:"#three ",
+                scroller:"body",
+                markers:true,
+                start:"top 0% ",
+                end: "top -150%",
+                scrub:1,// smooth scrooling and comtroll based on the scrolling
+                pin :true//page shpuld hold until teh animation completes
+            }
+        })
+
+        gsap.to(".four .ex",{
+            transform:"translate(-100%)",
+            opacity:1,
+            duration:8,
+            scrollTrigger:{
+                start: "top 0%",
+                end: "top -100%",
+                trigger:".four",
+                markers:true,
+                scroller:"body",
+                scrub:1,
+                pin:true
+            }
+        })
+    </script>
+</body>
+</html>

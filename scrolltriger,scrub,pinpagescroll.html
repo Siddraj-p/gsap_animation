@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scrolltriger,scrub,pinpagescroll.html</title>
+    <style>
+        body {
+  margin: 0;
+  overflow-x: hidden;
+}
+.main {
+  height: 200vh; /* Example: 2x the viewport height */
+  overflow: hidden;
+}
+.section {
+  height: 100vh; /* Full screen height per section */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.animate-text {
+  font-size: 3rem;
+  opacity: 0; /* Start as invisible */
+  transform: translateY(50px); /* Start 50px below */
+}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <section class="section">
+          <h1 class="animate-text">Welcome to the First Section</h1>
+        </section>
+        <section class="section">
+          <h1 class="animate-text">Scroll Down for More</h1>
+        </section>
+      </div>
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+
+<!-- Your custom JavaScript code -->
+<script src="your-script.js"></script>
+      <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+// Animate each text element
+gsap.utils.toArray('.animate-text').forEach((text) => {
+  gsap.fromTo(
+    text,
+    {
+      opacity: 0, // Start invisible
+      y: 50, // Start 50px below
+    },
+    {
+      opacity: 1, // Fully visible
+      y: 0, // Move to its original position
+      duration: 1, // Animation duration
+      ease: 'power1.out',
+      scrollTrigger: {
+        trigger: text, // Trigger animation when this element is in view
+        start: 'top 85%', // Start animation when the top of the element is 75% down the viewport
+        end: 'top 25%', // End animation when the top is 25% down
+        // scrub: false, // No scrubbing for smooth animation
+      },
+    }
+  );
+});
+
+      </script>
+</body>
+</html>

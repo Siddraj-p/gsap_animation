@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Trail with Colors</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            background-color: antiquewhite;
+        }
+        .page {
+            width: 100%;
+            height: 100vh;
+            background-color: azure;
+            cursor: none; /* Hide default cursor */
+            position: relative;
+        }
+        .curser, .trail {
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%); /* Center elements */
+        }
+        .curser {
+            background-color: black; /* Main cursor color */
+            width: 20px;
+            height: 20px;
+            z-index: 10; /* Ensure main cursor is on top */
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="curser"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        const cursor = document.querySelector(".curser");
+        const main = document.querySelector(".page");
+
+        const trailCount = 10; // Number of trail elements
+        const trails = []; // Array to store trail elements
+        const colors = [
+            "#FF5733", "#33FF57", "#3357FF", "#F3FF33", "#FF33F3",
+            "#33FFF3", "#F333FF", "#5733FF", "#FF9C33", "#33FF9C"
+        ]; // Predefined set of colors
+
+        // Create trail elements with decreasing sizes
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement("div");
+            trail.classList.add("trail");
+
+            // Assign decreasing size
+            const size = 20 - i * 2; // Decrease size progressively
+            trail.style.width = `${size}px`;
+            trail.style.height = `${size}px`;
+
+            // Assign color
+            trail.style.backgroundColor = colors[i % colors.length]; // Cycle through colors
+
+            main.appendChild(trail);
+            trails.push(trail);
+        }
+
+        // Mousemove event
+        main.addEventListener("mousemove", (event) => {
+            const mouseX = event.clientX+10;
+            const mouseY = event.clientY+10;
+
+            // Move the main cursor
+            gsap.to(cursor, {
+                x: mouseX,  
+                y: mouseY,
+                duration: 0.1,
+            });
+
+            // Position each trail element with decreasing size and delay
+            trails.forEach((trail, index) => {
+                gsap.to(trail, {
+                    x: mouseX,
+                    y: mouseY,
+                    duration: 0.2 + index * 0.05, // Increasing delay for each trail
+                });
+            });
+        });
+    </script>
+</body>
+</html>

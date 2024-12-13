@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrollTrigger Stagger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f8ff;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .section:nth-child(even) {
+            background-color: #e6e6fa;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 80%;
+            justify-content: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #5b9bd5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 18px;
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(50px); /* Move downward initially */
+        }
+    </style>
+</head>
+<body>
+    <!-- Sections for Scrolling -->
+    <div class="section">
+        <h1>Scroll Down</h1>
+    </div>
+    <div class="section">
+        <div class="content">
+            <!-- Elements to Animate -->
+            <div class="box">1</div>
+            <div class="box">2</div>
+            <div class="box">3</div>
+            <div class="box">4</div>
+            <div class="box">5</div>
+        </div>
+    </div>
+    <div class="section">
+        <h1>More Content</h1>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate boxes with stagger
+        gsap.to(".box", {
+            opacity: 1,        // Fade in
+            y: 0,              // Move to original position
+            duration: 1,       // Animation duration
+            stagger: 0.2,      // Time between each item's animation
+            scrollTrigger: {
+                trigger: ".box", // Trigger animation when `.content` comes into view
+                start: "top 80%",    // Start animation when the top of `.content` reaches 80% of the viewport
+                end: "top 50%",      // Animation ends when `.content` reaches 50% of the viewport
+                // toggleActions: "p/lay none none reverse", // Play animation and reverse on scroll back
+                markers: true,        // Debug markers (remove in production)
+                scrub:true
+            }
+        });
+    </script>
+</body>
+</html>

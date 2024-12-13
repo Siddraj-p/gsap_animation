@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation gsap</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<style>
+*{
+    padding: 0%;
+    margin: 0;
+}
+
+.main{
+    width: 100%;
+    height: 100vh;
+    /* background-image: url("https://images.pexels.com/photos/158163/clouds-cloudporn-weather-lookup-158163.jpeg?cs=srgb&dl=pexels-pixabay-158163.jpg&fm=jpg"); */
+    background-size: cover;
+    background-position: center ;
+}
+
+body{
+    overflow-x: hidden;
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 50px;
+    /* position: fixed; */
+    color: black ;
+}
+
+.nav i{
+    font-size: 30px;
+    font-weight: 400;
+}
+.full{
+
+    height: 100%;
+    width: 40%;
+    background-color: rgba(240, 248, 255, 0.353);
+    top: 0;
+    right: -50%;
+    position: absolute;
+    /* filter:blur(30px) */
+    backdrop-filter: blur(10px);
+    padding: 120px 50px;
+    z-index: 10;
+
+}
+.full h4{
+    margin-bottom: 10px;
+    font-size: 45px;
+    font-weight: 500;
+}
+
+.full i{
+    position: absolute;
+    top: 5%;
+    right: 10%;
+     background-color: aliceblue;
+     padding: 5px;
+     font-weight: 500;
+     font-size: 40px;
+     border-radius: 50% ;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 7;
+
+}
+.center h1{
+    background-color:rgba(247, 242, 242, 0.395);
+
+}
+.center h1 span{
+    font-size: 300px;
+    overflow: hidden;
+}
+h1 span {
+    display: inline-block;
+}
+
+</style>
+<body>
+    <div class="main">
+        <div class="nav">
+            <h1>timepass</h1>
+            <i class="ri-menu-3-line"></i>
+        </div>
+        <div class="full">
+            <h4>work</h4>
+            <h4>about</h4>
+            <h4>service</h4>
+            <h4>contact</h4>
+            <i class="ri-close-line"></i>
+        </div>
+        <div class="center">
+            <h1> abcd   </h1>
+        </div>
+    </div>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let tt = gsap.timeline();
+        tt.from('.nav h1',{
+            y:-100,
+            duration:0.5,
+            opacity:0
+        })
+
+        tt.from('.nav i',{
+            y:100,
+            duration:0.5,
+            opacity:0
+        })
+
+
+       let menu  =  document.querySelector('.full i')
+       let nav  =  document.querySelector('.nav i')
+
+
+       let tl = gsap.timeline();
+       tl.pause();
+        tl.to('.full',{
+            right:0,
+            duration:0.8,
+
+        })
+        tl.to('.full h4',{
+            x:50,
+            duration:0.5,
+            stagger:0.3,
+            opacity:1,
+            scale:1
+        })
+
+        tl.from('.full h4',{
+          opacity:0,
+
+        })
+
+        nav.addEventListener('click',function(){
+            tl.play()
+        })
+        menu.addEventListener('click',function(){
+            tl.reverse()
+        })
+       
+        function splited(){
+        let  h =  document.querySelector('.center h1');
+        let word = h.textContent
+        let splited =  word.split('')
+        let restore = ''
+            let halfvalue = Math.floor(splited.length/2)
+
+        splited.forEach(function (e,idx){
+            if(idx<halfvalue){
+                restore+=`<span class="a">${e}</span>`
+                
+    }
+            else{
+                restore+=`<span class="b">${e}</span>`
+              }
+        })
+        h.innerHTML=restore
+    } 
+       splited();
+       gsap.from('h1 .b',{
+                    y:70,
+                    opacity:0,
+                    duration:0.5,
+                    delay:0.5,
+                    stagger:-0.4
+
+       })
+       gsap.from('.a',{
+                    y:70,
+                    opacity:0,
+                    duration:0.5,
+                    delay:0.5,
+                    stagger:0.4
+
+       })
+      
+      
+    </script>
+</body>
+</html>

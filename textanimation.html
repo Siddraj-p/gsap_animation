@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Animation</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            background-color: aliceblue;
+        }
+        body,html{
+            height: 100%;
+            width: 100%; 
+        }
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            display: flex;
+
+
+        }
+        h1 span{
+            display: inline-block;
+            font-size: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+         <h1>experinece</h1>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function breakword(){
+        var te = document.querySelector('h1');
+        var text = te.textContent; // Get the text content
+        let alpha = text.split(''); // Split into individual letters
+        var word = ''; // Initialize an empty string for HTML
+        alpha.forEach(function(e) {
+        word += `<span>${e}</span>`;
+        });
+        te.innerHTML = word;
+        }
+        breakword();
+
+        gsap.from('h1 span',{
+            y:100,
+            opacity:0,
+            duration:1,
+            delay:1,
+            stagger:0.4 
+
+        })
+
+
+</script>
+</body>
+</html>

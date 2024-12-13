@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+        body,html{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            background-color: aliceblue;
+        }
+    
+        .page1 , .page2,.page3{
+            height: 100vh;
+            width: 100%;
+            /* padding :0 4vw */
+        } 
+
+        .move{
+            display: flex;
+            background-color: #D8ff04;
+            padding: 2vw 0 ;
+            overflow: hidden;
+        }
+
+        .move h1{
+            font-size: 70px;
+
+        }
+        .move p{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(159, 66, 5, 0.606);
+        }
+        .marquee{
+                transform: translateX(-100%);
+                padding: 0 1.5vw;
+                display: flex;
+                align-items: center;
+                gap: 3vw;
+                flex-shrink: 0;
+            }
+
+
+    </style>
+</head>
+<body>
+    <div class="page1"></div>
+    <div class="page2">
+        <div class="move">
+            <div class="marquee">
+                <h1>thrive beyond limits</h1>
+                <p></p>
+            </div>
+            <div class="marquee">
+                <h1>thrive beyond limits</h1>
+                <p></p>
+            </div>
+            <div class="marquee">
+                <h1>thrive beyond limits</h1>
+                <p></p>
+            </div>
+            <div class="marquee">
+                <h1>thrive beyond limits</h1>
+                <p></p>
+            </div>
+            <div class="marquee">
+                <h1>thrive beyond limits</h1>
+                <p></p>
+            </div>       
+        </div>
+    </div>
+    <div class="page3"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        window.addEventListener('wheel', function(dets){
+            if(dets.deltaY>0){
+                gsap.to('.marquee',{
+                    
+            Transform:'translateX(-100%)',
+            delay:1,
+            // rotate: 18,
+            duration:2,
+            repeat:-1,
+            ease:"none"
+
+        })            }
+            else{
+                gsap.to('.marquee',{
+            Transform:'translateX(100%)',
+            delay:1,
+            duration:2,
+            repeat:-1,
+            ease:"none"
+
+            }
+        )
+        }
+    }
+        )
+      
+
+    </script>
+</body>
+</html>
